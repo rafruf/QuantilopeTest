@@ -1,24 +1,22 @@
 package com.quantilope;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SurveyTest extends TestBase{
     @Test
-    public void Login() throws InterruptedException {
-        int j = 0;
-        for(int i = 0; i<10; ++i) {
-            startSurvey();
-            FirstQuestion();
-            SecondQuestion();
-            ThirdQuestion();
-            pause(100);
+    public void CycleTestExe() throws InterruptedException {
+        int testNum = 10; // Enter here num of test exe
+        TestExecution t = new TestExecution();
+        t.SurveyExe(testNum);
 
-            j++;
-        }
-        System.out.println(j);
-
-        tearDown();
     }
+
+    @Test
+    public void GraphValidation(){
+        Assert.assertTrue(VerifyGraph());
+    }
+
 
 
 

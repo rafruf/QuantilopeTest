@@ -2,6 +2,7 @@ package com.quantilope;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
@@ -11,37 +12,18 @@ public class TestBase {
     static WebDriver wd;
     int i;
     String Str;
+    String  Survey_URL = "https://survey.quantilope.com/SfidqfGjdrvMzwzWK/8B9D4YJjjEkJZ9EJ8/9xednGW4bJAGd7sv2";
+    String Dashboard_URL = "https://app.quantilope.com/share/gbhGTcBXLWQmiiZXT?type=dashboard";
 
 
     @BeforeTest
     public void setUp(){
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        wd.get("https://survey.quantilope.com/SfidqfGjdrvMzwzWK/8B9D4YJjjEkJZ9EJ8/9xednGW4bJAGd7sv2");
+        wd.get(Survey_URL);
     }
 
-    public void startSurvey() {
-        wd.get("https://survey.quantilope.com/SfidqfGjdrvMzwzWK/8B9D4YJjjEkJZ9EJ8/9xednGW4bJAGd7sv2");
-        click(By.cssSelector("[id='startSurvey']"));
-        //comment
 
-
-    }
-
-    public void FirstQuestion()  {
-        click(By.xpath("//div[@class='matrixBody']/div["+RandNum(3)+"]/div/div[1]/div"));
-        NextPage();
-    }
-
-    public void SecondQuestion()  {
-        type(By.xpath("//input[@id='P4fXcL2ThPnuv8Pem']"), ParseStr(100));
-        NextPage();
-    }
-
-    public void ThirdQuestion() {
-        click(By.xpath("//div[@class='matrixBody']/div/div["+RandNum(5)+"]/div/label"));
-        NextPage();
-    }
 
     public void pause(int time) throws InterruptedException {
         Thread.sleep(time);
@@ -75,8 +57,15 @@ public class TestBase {
 
     public String ParseStr(int max){
         max = RandNum(max);
-        Str =String.valueOf(max);
+        Str = String.valueOf(max);
         return Str;
+    }
+
+    public boolean VerifyGraph(){
+        //WebElement N_Total = wd.findElement(By.xpath("//div[@class='react-grid-layout']/div[3]/div/div/div/div[2]/div//*[@class='highcharts-root']/*[@class='highcharts-credits']"));
+        boolean graph;
+        graph = wd.findElement(By.xpath("//div[@class='react-grid-layout']/div[3]/div/div/div/div[2]/div//*[@class='highcharts-root']")).isDisplayed();
+        return graph;
     }
 
     @AfterSuite
